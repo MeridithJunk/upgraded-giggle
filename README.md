@@ -1,66 +1,80 @@
-# upgraded-giggle
-Learning C - with tests. Following the Pencil Durability Kata - 
+Vending Machine Kata
+====================
 
-Pencil Durability Kata
-The purpose of the Pencil Durability Kata is to write code to simulate, first coarsely and then more faithfully, an ordinary graphite pencil. It includes writing and editing text, point degradation, using the eraser, and sharpening the pencil. The point of this kata is to provide a larger-than-trivial exercise that can be used to practice TDD. A significant portion of the effort will be in determining which tests should be written and, more importantly, written next.
+In this exercise you will build the brains of a vending machine.  It will accept money, make change, maintain
+inventory, and dispense products.  All the things that you might expect a vending machine to accomplish.
 
-Write
-As a writer
-I want to be able use a pencil to write text on a sheet of paper
-so that I can better remember my thoughts
+The point of this kata to to provide a larger than trivial exercise that can be used to practice TDD.  A significant
+portion of the effort will be in determining what tests should be written and, more importantly, written next.
 
-When the pencil is instructed to write a string of text on a sheet of paper, the paper should reflect the text that was written.
+Features
+========
 
-Text written by the pencil should always be appended to existing text on the paper. Thus, given a piece of paper with the text "She sells sea shells", when a pencil is instructed to write " down by the sea shore" on the paper, the paper will then contain the entire string (i.e. "She sells sea shells down by the sea shore").
+Accept Coins
+------------
+  
+_As a vendor_  
+_I want a vending machine that accepts coins_  
+_So that I can collect money from the customer_  
 
-Point Degradation
-As a pencil manufacturer
-I want writing to cause a pencil point to go dull
-so that I can sell more pencils
+The vending machine will accept valid coins (nickels, dimes, and quarters) and reject invalid ones (pennies).  When a
+valid coin is inserted the amount of the coin will be added to the current amount and the display will be updated.
+When there are no coins inserted, the machine displays INSERT COIN.  Rejected coins are placed in the coin return.
 
-When a pencil is created, it can be provided with a value for point durability. The pencil will be able to write only a limited number of characters before it goes dull. After it goes dull, every character it is directed to write will appear as a space. A pencil created with a high point durability will still go dull, but not as fast as one with a lower durability rating.
+NOTE: The temptation here will be to create Coin objects that know their value.  However, this is not how a real
+  vending machine works.  Instead, it identifies coins by their weight and size and then assigns a value to what
+  was inserted.  You will need to do something similar.  This can be simulated using strings, constants, enums,
+  symbols, or something of that nature.
 
-Writing spaces and newlines expends no graphite, therefore "writing" these characters should not affect the pencil point.
+Select Product
+--------------
 
-Lowercase letters should degrade the pencil point by a value of one, and capital letters should degrade the point by two. Hence when a pencil with a point durability of four is instructed to write the string "text", the paper will contain the entire string. But if a pencil with point durability of four is instructed to write the string "Text", the paper will only show "Tex ".
+_As a vendor_  
+_I want customers to select products_  
+_So that I can give them an incentive to put money in the machine_  
 
-Sharpen
-As a writer
-I want to be able to sharpen my pencil
-so that I can continue to write with it after it goes dull
+There are three products: cola for $1.00, chips for $0.50, and candy for $0.65.  When the respective button is pressed
+and enough money has been inserted, the product is dispensed and the machine displays THANK YOU.  If the display is
+checked again, it will display INSERT COIN and the current amount will be set to $0.00.  If there is not enough money
+inserted then the machine displays PRICE and the price of the item and subsequent checks of the display will display
+either INSERT COIN or the current amount as appropriate.
 
-When a pencil is sharpened, it regains its initial point durability and can write more characters before it goes dull again. Thus, given a pencil created with point durability of 40,000 that has since degraded, when it is sharpened, its point durability will be 40,000 again.
+Make Change
+-----------
 
-A pencil should also be created with an initial length value. Pencils of short length will only be sharpenable a small number of times while pencils of longer length can be sharpened more times. The pencil's length is reduced by one each time it is sharpened. When a pencil's length is zero, then sharpening it no longer restores its point durabliity.
+_As a vendor_  
+_I want customers to receive correct change_  
+_So that they will use the vending machine again_  
 
-Erase
-As a writer
-I want to be able to erase previously written text
-so that I can remove my mistakes
+When a product is selected that costs less than the amount of money in the machine, then the remaining amount is placed
+in the coin return.
 
-When the pencil is instructed to erase text from the paper, the last occurrence of that text on the paper will be replaced with empty spaces.
+Return Coins
+------------
 
-Given a piece of the paper containing the string:
-"How much wood would a woodchuck chuck if a woodchuck could chuck wood?"
-when the string "chuck" is erased, the paper should read:
-"How much wood would a woodchuck chuck if a woodchuck could       wood?"
-and if the string "chuck" is erased again, the paper should read:
-"How much wood would a woodchuck chuck if a wood      could       wood?"
+_As a customer_  
+_I want to have my money returned_  
+_So that I can change my mind about buying stuff from the vending machine_  
 
-Eraser Degradation
-As a pencil manufacturer
-I want a pencil eraser to eventually wear out
-so that I can sell more pencils
+When the return coins button is pressed, the money the customer has placed in the machine is returned and the display shows
+INSERT COIN.
 
-When a pencil is created, it can be provided with a value for eraser durability. For simplicity, all characters except for white space should degrade the eraser by a value of one. Text should be erased in the opposite order it was written. Once the eraser durability is zero, the eraser is worn out and can no longer erase.
+Sold Out
+--------
 
-Thus if a pencil's eraser has remaining durability of three, and it is instructed to erase the word "Bill" from "Buffalo Bill", then the text remaining on the paper is "Buffalo B   ".
+_As a customer_  
+_I want to be told when the item I have selected is not available_  
+_So that I can select another item_  
 
-Editing
-As a writer
-I want to be able to edit previously written text
-so that I can change my writing without starting over
+When the item selected by the customer is out of stock, the machine displays SOLD OUT.  If the display is checked again,
+it will display the amount of money remaining in the machine or INSERT COIN if there is no money in the machine.
 
-Once text has been erased from the paper, a pencil may be instructed to write new text over the resulting white space. For instance, if the paper contains the text "An       a day keeps the doctor away", a pencil can can be instructed to write the word "onion" in the white space gap, so the text reads "An onion a day keeps the doctor away".
+Exact Change Only
+-----------------
 
-Existing text on the page cannot 'shift' to make room for new text. If the new text is longer than the allocated whitespace and thus would collide with other existing non-whitespace characters on the page, these character collisions should be represented by the "@" character. For example, writing "artichoke" in the middle of "An       a day keeps the doctor away" would result in "An artich@k@ay keeps the doctor away".
+_As a customer_  
+_I want to be told when exact change is required_  
+_So that I can determine if I can buy something with the money I have before inserting it_  
+
+When the machine is not able to make change with the money in the machine for any of the items that it sells, it will
+display EXACT CHANGE ONLY instead of INSERT COIN.

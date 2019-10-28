@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/meridith.a.junk/Desktop/sprints/kata-vending-machine/VendingMachine_lib/VendingMachine.cpp
+VendingMachine.h
+/Users/meridith.a.junk/Desktop/sprints/kata-vending-machine/VendingMachine_lib/VendingMachine.h
+
+/Users/meridith.a.junk/Desktop/sprints/kata-vending-machine/VendingMachine_lib/VendingMachine.h
+string
+-
+iomanip
+-
+sstream
+-
+vector
+-
+

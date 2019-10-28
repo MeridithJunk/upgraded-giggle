@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libVendingMachine_lib.a  CMakeFiles/VendingMachine_lib.dir/VendingMachine.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libVendingMachine_lib.a
