@@ -1,3 +1,5 @@
+Learning C++ with the vending Machine Kata. 
+
 Vending Machine Kata
 ====================
 
